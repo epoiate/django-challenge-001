@@ -1,9 +1,8 @@
 from django.urls import path
-from django.contrib.auth.models import User
-from .views import login, sign_up
 
+from .views import LoginAPIView, sign_up
 
 urlpatterns = [
-    path('login/', login),
+    path('login/', LoginAPIView.as_view()),
     path('sign-up/', sign_up)
 ]
