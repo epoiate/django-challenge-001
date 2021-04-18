@@ -44,10 +44,7 @@ class SignUpAPIView(APIView):
             user = serializer.save()
             token, created = Token.objects.get_or_create(user=user)
             login(request, user)
-            data = {
-                'id': user.pk,
-                'token': token.key
-            }
+            data = {'token': token.key}
             return Response(data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
