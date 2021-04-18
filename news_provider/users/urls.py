@@ -1,8 +1,9 @@
 from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import LoginAPIView, SignUpAPIView
+from .views import SignUpAPIView
 
 urlpatterns = [
-    path('login/', LoginAPIView.as_view()),
+    path('login/', obtain_auth_token),
     path('sign-up/', SignUpAPIView.as_view())
 ]

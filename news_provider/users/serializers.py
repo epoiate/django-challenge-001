@@ -8,7 +8,10 @@ from .models import CustomUser
 
 
 class LoginSerializer(serializers.Serializer):
-    """Serializer for login process"""
+    """
+    Serializer for login process
+    CAUTION: Deprecated!
+    """
 
     username = serializers.CharField(max_length=20)
     password = serializers.CharField(max_length=255, style={'input_type': 'password', })
@@ -33,6 +36,9 @@ class SignUpSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=255, style={'input_type': 'password', })
     email = serializers.EmailField(max_length=32)
     confirm_password = serializers.CharField(max_length=255, style={'input_type': 'password', })
+
+    def update(self, instance, validated_data):
+        pass
 
     def validate_username(self, username):
         if CustomUser.objects.filter(username=username).exists():

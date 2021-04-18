@@ -11,7 +11,10 @@ from .serializers import LoginSerializer, SignUpSerializer
 
 
 class LoginAPIView(APIView):
-    """Login view"""
+    """
+    Login view
+    CAUTION: Deprecated!
+    """
     # authentication_classes = [To]
     permission_classes = [permissions.AllowAny]
 
