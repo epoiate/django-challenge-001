@@ -1,9 +1,12 @@
-version: '3.0'
+version: '3.9'
 services:
   db:
     image: postgres:12
+    volumes:
+      - "./data/db:/var/lib/postgres/data"
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: "challenge"
       POSTGRES_DB: "challenge"
+      POSTGRES_USER: "challenge"
+      POSTGRES_PASSWORD: "challenge"
