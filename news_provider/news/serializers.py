@@ -14,6 +14,12 @@ class AuthorSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     """Serializer for Article"""
 
+    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
+
+    def validate(self, attrs):
+        print(attrs)
+        return attrs
+
     class Meta:
         model = Article
         fields = '__all__'
@@ -25,5 +31,5 @@ class AnonymousArticleSerializer(ArticleSerializer):
 
     class Meta:
         model = Article
-        exclude = ['firstParagraph', ]
+        exclude = ['body', ]
         depth = 1

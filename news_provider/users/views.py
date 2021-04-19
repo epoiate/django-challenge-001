@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import LoginSerializer, SignUpSerializer
+from news.models import Author
 
 
 # Create your views here.
@@ -42,6 +43,7 @@ class SignUpAPIView(APIView):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            Author.objects.get_or_create(id=user, name=user.username)
             token, created = Token.objects.get_or_create(user=user)
             login(request, user)
             data = {'token': token.key}

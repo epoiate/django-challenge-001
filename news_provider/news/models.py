@@ -24,7 +24,7 @@ class Author(models.Model):
 class Article(models.Model):
     """Article model"""
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, auto_created=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     category = models.CharField(max_length=20)
     title = models.CharField(max_length=100)
