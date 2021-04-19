@@ -6,7 +6,17 @@ services:
       - "./data/db:/var/lib/postgres/data"
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: "challenge"
-      POSTGRES_USER: "challenge"
-      POSTGRES_PASSWORD: "challenge"
+    env_file:
+      - .env
+
+  web:
+    build: ./news_provider
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./news_provider:/code
+    ports:
+    - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
