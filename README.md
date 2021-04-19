@@ -1,5 +1,27 @@
 # Jungle Devs - Django Challenge #001
 
+## Instructions
+
+1. Clone this repository to the destination folder
+2. Load Postman with ```News Provider.postman_collection.json``` 
+3. Running:
+   
+    3.a For development, run docker-composer with:
+
+    ```sudo docker-composer up --build -d```
+
+    3.b For production, use this one instead:
+
+    ```sudo docker-composer -f docker-composer.prod.yml up --build -d```
+
+4. If necessary, run migrations and createsuperuser:
+
+    ```sudo docker-compose exec web python manage.py migrate```
+
+    ```sudo docker-compose exec web python manage.py createsuperuser```
+5. Access the api through http://localhost/api/ 
+
+
 ## Description
 
 **Challenge goal**: The purpose of this challenge is to give an overall understanding of a backend application. You’ll be implementing a simplified version of a news provider API. The concepts that you’re going to apply are:
