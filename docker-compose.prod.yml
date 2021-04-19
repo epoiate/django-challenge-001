@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - "./data/db:/var/lib/postgres/data"
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  web:
+    build: ./news_provider
+    command: gunicorn news_provider.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./news_provider:/code
+    expose:
+      - 8000
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
