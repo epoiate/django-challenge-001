@@ -14,11 +14,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     """Serializer for Article"""
 
-    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
-
-    def validate(self, attrs):
-        print(attrs)
-        return attrs
+    author = AuthorSerializer()
 
     class Meta:
         model = Article
