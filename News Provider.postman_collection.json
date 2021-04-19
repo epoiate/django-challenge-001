@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "57954e96-d0f7-4375-a741-478c8a8aef60",
+		"name": "News Provider",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "sign-up",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "my_user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "my_password",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "my_password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user@domain.com",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sign-up/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sign-up",
+								""
+							]
+						},
+						"description": "This APIView accepts the follow JSON with a POST Request:\n\n{\nusername: \"user\",\npassword: \"password\",\nconfirm_password: \"password\",\nemail: \"user@domain.com\"\n}\n\nIf the User is created succesfully, it will return the Authorization Token"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "my_user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "my_password",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login",
+								""
+							]
+						},
+						"description": "This APIView accepts the follow JSON with a POST Request:\n\n{\nusername: \"user\",\npassword: \"password\",\n}\n\nIf authentication runs succesfully, it will return the Authorization Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "Authors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Eduardo",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/admin/authors/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"authors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Articles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "author",
+									"value": "4c2275ff-1405-4912-a466-11d0c83b7f3a",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Category",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "My Title",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "Short summary",
+									"type": "text"
+								},
+								{
+									"key": "firstParagraph",
+									"value": "First paragraph",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "Text body",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/admin/articles/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"articles",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Token {{token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "bf733af8-083e-4693-bc38-46424ade103b",
+			"key": "url",
+			"value": "localhost:{{port}}/api"
+		},
+		{
+			"id": "24426311-71b5-4d62-befc-5b87b663aa88",
+			"key": "port",
+			"value": "80"
+		},
+		{
+			"id": "c744f2d8-2504-4e5d-9ee6-8a71995bd465",
+			"key": "token",
+			"value": "f63db2212783ab86f768421d2fc87fc2fe9e996f"
+		}
+	]
+}
