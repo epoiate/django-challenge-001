@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 
 from .models import Author, Article
 from .serializers import AuthorSerializer, ArticleSerializer, AnonymousArticleSerializer
@@ -7,14 +8,15 @@ from .serializers import AuthorSerializer, ArticleSerializer, AnonymousArticleSe
 # Create your views here.
 
 
-class AuthorViewSet(viewsets.ModelViewSet):
+class AdminAuthorViewSet(viewsets.ModelViewSet):
     """ViewSet for Authors"""
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAdminUser]
 
 
-class ArticleViewSet(viewsets.ModelViewSet):
-    """ViewSet for Article"""
+class ArticleViewSet(viewsets.GenericViewSet, ListModelMixin, RetrieveModelMixin):
+    """ViewSet that implements desired behaviours for Article"""
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
@@ -49,3 +51,10 @@ class ArticleViewSet(viewsets.ModelViewSet):
                 field_lookups[key] = value
             queryset = queryset.filter(**field_lookups)
         return queryset
+
+
+class AdminArticleViewSet(viewsets.ModelViewSet):
+    """Admin ViewSet for Article"""
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [permissions.IsAdminUser]

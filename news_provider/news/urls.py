@@ -1,12 +1,16 @@
 from django.urls import path, include
-
 from rest_framework import routers
-from .views import AuthorViewSet, ArticleViewSet
+
+from .views import AdminAuthorViewSet, AdminArticleViewSet, ArticleViewSet
+
+admin_router = routers.DefaultRouter()
+admin_router.register('articles', AdminArticleViewSet, basename='admin_rticles')
+admin_router.register('authors', AdminAuthorViewSet, basename='admin_authors')
 
 router = routers.DefaultRouter()
 router.register('articles', ArticleViewSet, basename='Articles')
-router.register('authors', AuthorViewSet, basename='Authors')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('admin/', include(admin_router.urls)),
 ]
